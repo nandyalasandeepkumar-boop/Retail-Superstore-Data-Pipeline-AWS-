@@ -1,0 +1,65 @@
+A) .gitignore
+gitignore
+Copy
+Edit
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.crash
+override.tf
+*.backup
+
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# Local data
+data/sample/*
+B) README.md
+markdown
+Copy
+Edit
+# Retail Superstore Data Pipeline (AWS)
+
+**Stack:** S3 (raw/curated), AWS Glue (ETL), AWS Glue Data Catalog, Athena (SQL), QuickSight (dashboards), Terraform (IaC)
+
+## Architecture
+1. **Raw → Curated:** CSV files land in `s3://<bucket>/raw/sales/`. A Glue ETL job cleans/casts data and writes Parquet to `s3://<bucket>/curated/sales/` partitioned by year/month.
+2. **Catalog & Query:** Athena reads curated Parquet via an external table with partition projection.
+3. **Dashboards:** QuickSight connects to Athena to visualize sales trends, category performance, and geo split.
+
+## Quick Start
+```bash
+# 0) Prereqs: AWS CLI configured, Terraform installed
+cd infrastructure
+terraform init
+terraform apply -auto-approve
+Outputs show your S3 bucket and Glue job name.
+
+Upload raw data (CSV) to the bucket:
+
+bash
+Copy
+Edit
+aws s3 cp ../data/sample/ s3://<YOUR_BUCKET>/raw/sales/ --recursive
+Run the ETL (replace values):
+
+bash
+Copy
+Edit
+aws glue start-job-run \
+  --job-name <GLUE_JOB_NAME> \
+  --arguments '{
+    "--RAW_S3_PATH":"s3://<YOUR_BUCKET>/raw/sales/",
+    "--CURATED_S3_PATH":"s3://<YOUR_BUCKET>/curated/sales/"
+  }'
+Create the Athena table & sample views:
+
+Open athena/create_tables.sql, replace <YOUR_BUCKET> and run in Athena.
