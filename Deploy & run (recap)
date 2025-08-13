@@ -1,0 +1,17 @@
+# Deploy infra
+cd infrastructure
+terraform init
+terraform apply -auto-approve
+
+# Upload raw CSVs (replace bucket)
+aws s3 cp ../data/sample/ s3://<YOUR_BUCKET>/raw/sales/ --recursive
+
+# Run Glue ETL (from outputs)
+aws glue start-job-run \
+  --job-name <GLUE_JOB_NAME> \
+  --arguments '{
+    "--RAW_S3_PATH":"s3://<YOUR_BUCKET>/raw/sales/",
+    "--CURATED_S3_PATH":"s3://<YOUR_BUCKET>/curated/sales/"
+  }'
+
+# Create Athena table/views (paste athena/create_tables.sql in console)
