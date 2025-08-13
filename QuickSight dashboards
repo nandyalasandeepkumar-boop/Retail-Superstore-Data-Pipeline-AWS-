@@ -1,0 +1,13 @@
+Data source: Athena → your workgroup.
+
+Datasets: sales_curated, v_monthly_sales, v_category_perf.
+
+Visuals:
+
+Line chart: month_dt vs total_sales
+
+Bar chart: category vs sales
+
+Map (State/City): sales by state (enable geo-mapping)
+
+KPI tiles: Total Sales, Total Profit
