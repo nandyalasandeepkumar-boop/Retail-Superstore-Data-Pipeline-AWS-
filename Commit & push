@@ -1,0 +1,4 @@
+git add .
+git commit -m "Initial commit: AWS Retail Superstore ETL (S3 + Glue + Athena)"
+git remote add origin https://github.com/<your-username>/Retail-Superstore-ETL-AWS.git
+git push -u origin main
