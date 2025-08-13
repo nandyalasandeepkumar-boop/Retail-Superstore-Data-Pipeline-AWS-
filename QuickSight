@@ -1,0 +1,10 @@
+Create a data source → Athena → choose the workgroup from Terraform.
+
+Import the sales_curated table.
+
+Build visuals: Monthly Sales, Category/Subcategory Performance, Top States/Cities.
+
+Notes
+Keep credentials out of Git. Use AWS CLI profiles/OIDC for CI.
+
+This repo is a template—extend with crawlers, more jobs, CI/CD, and QS assets as needed.
