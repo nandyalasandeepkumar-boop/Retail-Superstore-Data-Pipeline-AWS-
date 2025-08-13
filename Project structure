@@ -1,0 +1,15 @@
+Retail-Superstore-ETL-AWS/
+├─ README.md
+├─ .gitignore
+├─ infrastructure/            # Terraform IaC for S3/Glue/Athena
+│  ├─ main.tf
+│  ├─ variables.tf
+│  └─ outputs.tf
+├─ glue_jobs/
+│  └─ retail_etl.py          # Glue ETL (PySpark)
+├─ athena/
+│  └─ create_tables.sql      # External table + sample queries
+├─ data/
+│  └─ sample/                # (Optional) tiny sample CSV for local testing
+└─ .github/workflows/
+   └─ ci.yml                 # (Optional) lint/validate CI
